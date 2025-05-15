@@ -277,4 +277,5 @@ def get_user_profile():
 # --------------------------- MAIN ---------------------------
 
 if __name__ == "__main__":
-    app.run(debug=os.getenv('FLASK_DEBUG', 'False') == 'True')
+    port = int(os.environ.get("PORT", 5000))  # Important line
+    app.run(host='0.0.0.0', port=port)
