@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile - Game Nexus</title>
+  <link rel="stylesheet" href="/static/profile.css">
+</head>
+
+<body>
+  <div class="nav">
+    <div class="nav-left">
+      <div class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <div class="kyu"><img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" id="logo"></div>
+    </div>
+
+    <div class="nav-center">
+      <input type="search" placeholder="Search..." id="searchbar">
+      <img id="mobile-search-btn">
+    </div>
+    <div class="nav-right">
+      <div class="profile-pic-container">
+        <div class="pfp"><img id="profile-pic"
+          src="{{ user.propic if user and user.propic else url_for('static', filename='default.png') }}" alt="Profile"></div>
+
+
+      </div>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="sidebar" id="sidebar">
+      <div class="sidebar-item"><span><a href="/">Home</a></span></div>
+      <div class="sidebar-item"><span><a href="user">Users</a></span></div>
+      <div class="sidebar-item active"><span><a href="account">Profile</a></span></div>
+      <div class="sidebar-item"><span><a href="x">Collections</a></span></div>
+    </div>
+
+    <div class="main-content">
+      <div class="profile-container">
+        <div class="profile-header">
+          <div class="profile-pic-container">
+            <img
+              src="{{ user.propic if user and user.propic.startswith('http') else url_for('static', filename='propic/' + user.propic) if user and user.propic else url_for('static', filename='default.png') }}"
+              alt="Profile Picture" class="profile-pic">
+            <div class="edit-profile-pic" id="edit-profile-pic">
+              <img src="https://cdn-icons-png.flaticon.com/512/2921/2921226.png" alt="Edit">
+            </div>
+          </div>
+          <div class="profile-info">
+            <h2>{{ user.nickname if user.nickname else 'Nickname' }}</h2>
+            <p>@{{ user.username }}</p>
+            {% if user.aternos_id %}<p>Aternos ID: {{ user.aternos_id }}</p>{% endif %}
+          </div>
+        </div>
+
+        <div class="profile-details">
+          <div class="detail-item">
+            <div class="detail-label">Date of Birth</div>
+            <div class="detail-value">{% if user.dob %}{{ user.dob }}{% else %}Not set{% endif %}</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Member Since</div>
+            <div class="detail-value">2025</div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-label">Bio</div>
+            <div class="detail-value">{% if user.bio %}{{ user.bio }}{% else %}No bio yet{% endif %}</div>
+          </div>
+        </div>
+
+        <a href="{{ url_for('logout') }}" class="logout-btn">Log Out</a>
+
+        <div class="user-posts">
+          <h3 class="section-title">Your Posts</h3>
+          <div class="grid" id="user-image-grid">
+            {% if user_posts %}
+            {% for post in user_posts %}
+            <div class="grid-item">
+              <img
+                src="{{ post.image_path if post.image_path.startswith('http') else url_for('static', filename='uploads/' + post.image_path) }}"
+                alt="User post">
+
+              <div class="post-info">
+                <span class="post-title">{{ post.title }}</span>
+                <span class="post-description">{{ post.description }}</span>
+                <span class="post-date">{{ post.timestamp.strftime('%B %d, %Y') }}</span>
+              </div>
+            </div>
+            {% endfor %}
+            {% else %}
+            <div class="no-posts">You haven't posted anything yet</div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit Profile Modal -->
+  <div class="modal" id="edit-profile-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="modal-title">Edit Profile</div>
+        <div class="close-btn" id="close-edit-modal">&times;</div>
+      </div>
+      <form id="profile-form" method="POST" action="{{ url_for('account') }}" enctype="multipart/form-data">
+        <div class="form-group">
+          <label for="profile-nickname">Nickname</label>
+          <input type="text" id="profile-nickname" name="nickname" value="{{ user.nickname if user.nickname else '' }}">
+        </div>
+
+        <div class="form-group">
+          <label for="profile-bio">Bio</label>
+          <textarea id="profile-bio" name="bio">{% if user.bio %}{{ user.bio }}{% endif %}</textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="profile-dob">Date of Birth</label>
+          <input type="date" id="profile-dob" name="dob" value="{% if user.dob %}{{ user.dob }}{% endif %}">
+
+        </div>
+
+        <div class="form-group">
+          <label>Profile Picture</label>
+          <div class="profile-pic-upload">
+            <img
+              src="{% if user.profile_pic %}{{ user.profile_pic if user.profile_pic.startswith('http') else url_for('static', filename=user.profile_pic) }}{% else %}https://via.placeholder.com/120{% endif %}"
+              alt="Preview" class="profile-pic-preview" id="profile-pic-preview">
+
+            <div>
+              <input type="file" id="profile-pic-upload" name="profile_pic" accept="image/*" style="display: none;">
+              <button type="button" class="save-profile-btn"
+                onclick="document.getElementById('profile-pic-upload').click()">Change Photo</button>
+            </div>
+          </div>
+        </div>
+
+        <button type="submit" class="save-profile-btn">Save Changes</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="{{ url_for('static', filename='profile.js') }}"></script>
+</body>
+
+</html>

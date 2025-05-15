@@ -1,0 +1,127 @@
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    width: 100vw;
+    font-family: Arial, sans-serif;
+    background-color: #121212; /* dark background for game feel */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+/* Game Nexus heading */
+h1 {
+    color: #00ffcc;
+    margin-bottom: 30px;
+    font-size: 45px;
+    margin-top: 0px;
+    font-family: 'My Fonts';
+    text-shadow: 2px 2px 5px #000;
+    letter-spacing: 9px;
+}
+
+/* Login container */
+.container {
+    background-color: #1f1f1f;
+    padding: 30px 40px;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0, 255, 204, 0.5);
+    width: 300px;
+    text-align: center;
+    height: 370px;
+}
+
+/* Headings */
+.container h3 {
+    color: #00ffcc;
+    margin-bottom: 20px;
+    font-size: 23px;
+}
+
+/* Labels */
+label {
+    display: block;
+    color: #ffffff;
+    text-align: left;
+    margin: 10px 0 5px;
+    font-weight: bold;
+}
+
+/* Inputs */
+input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 6px;
+    background-color: #2c2c2c;
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+input:focus {
+    outline: none;
+    border: 2px solid #00ffcc;
+}
+
+/* Button */
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #00ffcc;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s ease;
+    color: #000;
+    font-family:'Arial Narrow', Arial, sans-serif;
+    letter-spacing: 2px;
+
+}
+
+button:hover {
+    background-color: #00e6b2;
+    box-shadow: 0 0 10px #00ffcc;
+}
+
+/* Paragraph & link */
+p {
+    color: #aaa;
+    margin: 10px 0 5px;
+}
+
+a {
+    color: #00ffcc;
+    text-decoration: none;
+}
+
+a:hover {
+    font-weight: bold;
+}
+
+
+/* Custom Font */
+@font-face {
+    font-family: 'My Fonts';
+    src: url('fonts/Game Of Squids.ttf') format('truetype');
+}
+
+/* Responsive */
+@media screen and (max-width: 800px) {
+    h1 {
+        text-align: center;
+        font-size: 36px;
+        margin-top: -180px;
+        
+    }
+}

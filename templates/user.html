@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Management - Game Nexus</title>
+  <link rel="stylesheet" href="/static/user.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body>
+  <div class="nav">
+    <div class="nav-left">
+      <div class="mobile-menu-btn" id="mobile-menu-btn">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <img src="/static/logo.png" id="logo" alt="Logo">
+    </div>
+    <div class="nav-center">
+      <input type="search" placeholder="Search..." id="searchbar" />
+      <button class="search-btn" id="search-btn">
+        <label for="searchbar"><img src="https://cdn-icons-png.flaticon.com/512/149/149852.png" class="icon"
+            alt="Search"></label>
+      </button>
+    </div>
+    <div class="nav-right">
+      <div class="profile-pic-container">
+        <img id="profile-pic"
+          src="{{ user.propic if user and user.propic else 'https://res.cloudinary.com/demo/image/upload/v1690000000/default.png' }}"
+          alt="Profile" />
+      </div>
+    </div>
+  </div>
+
+  <!-- Sidebar + Main -->
+  <div class="content">
+    <div class="sidebar" id="sidebar">
+      <div class="sidebar-item"><span><a href="/">Home</a></span></div>
+      <div class="sidebar-item active"><span><a href="/user">Users</a></span></div>
+      <div class="sidebar-item"><span><a href="/x">Collections</a></span></div>
+      <div class="sidebar-item"><span><a href="/account">Profile</a></span></div>
+    </div>
+
+    <div class="main-content">
+      <div class="user-management-container">
+        <div class="user-header">
+          <h1><i class="fas fa-users"></i> User Management</h1>
+        </div>
+
+        <!-- All Users Section -->
+
+
+        <div class="user-grid" id="usersGrid">
+          {% for user in all_users %}
+          <div class="user-card">
+            <div class="user-avatar"
+              style="background-image: url('{{ user.propic if user and user.propic else 'https://res.cloudinary.com/demo/image/upload/v1690000000/default.png' }}')">
+            </div>
+            <div class="user-nickname">{{ user.nickname }}</div>
+            <div class="user-tooltip">
+              <div class="tooltip-title">{{ user.nickname }}'s Profile</div>
+              <div class="tooltip-info"><i class="fas fa-user"></i> @{{ user.username }}</div>
+              <div class="tooltip-info"><i class="fas fa-envelope"></i> {{ user.email }}</div>
+              <div class="tooltip-info"><i class="fas fa-birthday-cake"></i> {{ user.dob }}</div>
+              <div class="tooltip-info"><i class="fas fa-calendar-alt"></i> Joined: {{ user.id }}</div>
+              <!-- You can add registration date field to your User model if needed -->
+            </div>
+          </div>
+          {% else %}
+          <div class="empty-state">
+            <i class="fas fa-user-slash"></i>
+            <h3>No Users Found</h3>
+            <p>There are no registered users yet</p>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+
+  <script src="/static/user.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Game Nexus</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
+</head>
+<body>
+    <h1>Game Nexus</h1>
+    <div class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <h3>Login</h3>
+        <form action="{{ url_for('login') }}" method="POST">
+            <label for="username">Enter Your Username 😄</label>
+            <input type="text" name="username" placeholder="Username" id="username" required>
+
+            <label for="password">Enter Your Password 🧐</label>
+            <input type="password" name="password" placeholder="Password" id="password" required>
+
+            <button type="submit">Enter</button>
+        </form>
+        <p>Don't Have Any Account??</p>
+        <a href="{{ url_for('signup') }}">Sign Up!</a>
+    </div>
+</body>
+</html>

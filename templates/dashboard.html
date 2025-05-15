@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Image Dashboard</title>
+  <link rel="stylesheet" href="/static/dashboard.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <!-- Navigation -->
+  <div class="nav">
+    <div class="nav-left">
+      <div class="mobile-menu-btn" id="mobile-menu-btn"><span></span><span></span><span></span></div>
+      <img src="/static/logo.png" id="logo" alt="Logo">
+    </div>
+    <div class="nav-center">
+      <input type="search" placeholder="Search..." id="searchbar" />
+      <button class="search-btn" id="search-btn">
+        <label for="searchbar"><img src="https://cdn-icons-png.flaticon.com/512/149/149852.png" class="icon"
+            alt="Search"></label>
+      </button>
+    </div>
+    <div class="nav-right">
+      <img src="https://img.icons8.com/m_rounded/512/plus.png" class="icon" id="add-image-btn" alt="Add">
+      <div class="profile-pic-container">
+        <img id="profile-pic"
+          src="{{ user.propic if user and user.propic else 'https://res.cloudinary.com/demo/image/upload/v1690000000/default.png' }}"
+          alt="Profile" />
+      </div>
+    </div>
+  </div>
+
+  <!-- Sidebar + Main -->
+  <div class="content">
+    <div class="sidebar" id="sidebar">
+      <div class="sidebar-item active"><span>Home</span></div>
+      <div class="sidebar-item"><span><a href="/user">Users</a></span></div>
+      <div class="sidebar-item"><span><a href="/x">Collections</a></span></div>
+      <div class="sidebar-item"><span><a href="/account">Profile</a></span></div>
+    </div>
+
+    <div class="main-content">
+      <div class="grid" id="image-grid"></div>
+      <div class="empty-state" id="empty-state">
+        <img src="https://cdn-icons-png.flaticon.com/512/4076/4076478.png" alt="No images">
+        <h3>No Images Yet</h3>
+        <p>Upload your first image to get started!</p>
+        <button class="empty-btn" id="upload-empty-btn">Upload Image</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating Button -->
+  <button class="fab" id="fab-btn">
+    <img src="https://img.icons8.com/m_rounded/512/plus.png" alt="Add">
+  </button>
+
+  <!-- Upload Modal -->
+  <div class="modal" id="upload-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="modal-title">Upload Image</div>
+        <div class="close-btn" id="close-modal">&times;</div>
+      </div>
+      <form id="upload-form" action="/upload" method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+          <label for="image-title">Title</label>
+          <input type="text" id="image-title" name="title" required>
+        </div>
+        <div class="form-group">
+          <label for="image-description">Description</label>
+          <textarea id="image-description" name="description"></textarea>
+        </div>
+        <div class="form-group">
+          <input type="file" id="image-file" name="image" class="file-input" accept="image/*" required>
+          <label for="image-file" class="file-label">
+            <p>Click to select image</p>
+            <p>or drag and drop</p>
+            <img id="image-preview" class="preview-image" alt="Preview">
+          </label>
+        </div>
+        <button type="submit" class="upload-btn">Upload Image</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Image View Modal -->
+  <div class="image-view-modal" id="image-view-modal">
+    <div class="image-view-content">
+      <img src="" id="modal-image" alt="Preview Image">
+      <div class="image-view-info" id="modal-info"></div>
+      <div class="image-view-close" id="image-view-close">&times;</div>
+    </div>
+  </div>
+
+  <script src="/static/dashboard.js"></script>
+</body>
+
+</html>
